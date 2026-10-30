@@ -1,53 +1,185 @@
 <!DOCTYPE html>
-
 <html lang="sv">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>SHOTIQ - Fotbollsstatistik</title>
-
-  <style>
-
-    * { box-sizing: border-box; }
-
-    body {
-
-      margin: 0;
-
-      background: #080d19;
-
-      color: #f4f7ff;
-
-      font-family: Arial, sans-serif;
-
-    }
-
-    header {
-
-      padding: 24px;
-
-      background: #111a2d;
-
-      border-bottom: 2px solid #38e0a0;
-
-    }
-
-    h1 { margin: 0; color: #38e0a0; font-size: 34px; }
-
-    header p { color: #aab8d0; }
-
-    main { max-width: 750px; margin: auto; padding: 22px; }
-
-    input, button {
-
-      width: 100%;
-
-      padding: 14px;
-
-      margin: 8px 0;
-
-      border-radius: 9px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOTIQ | Football Analytics</title>
+<style>
+:root {
+ --bg:#080d18;
+ --panel:#111a2b;
+ --panel2:#17243a;
+ --line:#263650;
+ --blue:#37c9ff;
+ --green:#35e6a0;
+ --text:#f4f7ff;
+ --muted:#94a6c2;
+}
+* {box-sizing:border-box}
+body {
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+}
+header {
+ height:75px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 7%;
+ border-bottom:1px solid var(--line);
+ background:#0c1423;
+}
+.logo {
+ font-size:28px;
+ font-weight:900;
+ letter-spacing:-1px;
+}
+.logo span {color:var(--blue)}
+.status {color:var(--green);font-size:12px}
+main {max-width:1100px;margin:auto;padding:35px 20px}
+.hero {margin-bottom:30px}
+.hero h1 {font-size:35px;margin:0 0 10px}
+.hero p {color:var(--muted);margin:0}
+.filters {
+ display:grid;
+ grid-template-columns:1fr 1fr auto;
+ gap:12px;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:15px;
+ padding:20px;
+}
+label {display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
+input,select {
+ width:100%;
+ padding:13px;
+ border-radius:8px;
+ border:1px solid var(--line);
+ background:#0a1322;
+ color:white;
+ font-size:15px;
+}
+button {
+ border:0;
+ border-radius:8px;
+ background:var(--blue);
+ color:#07111c;
+ padding:13px 20px;
+ font-weight:bold;
+ cursor:pointer;
+ align-self:end;
+}
+.section-title {margin:32px 0 15px;font-size:20px}
+.matches {display:grid;gap:14px}
+.match {
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:13px;
+ padding:20px;
+}
+.teams {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ font-size:17px;
+ font-weight:bold;
+ gap:10px;
+}
+.vs {color:var(--muted);font-size:12px}
+.meta {color:var(--muted);font-size:12px;margin-top:12px}
+.stats {
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-top:18px;
+}
+.stat {
+ background:var(--panel2);
+ padding:14px 8px;
+ text-align:center;
+ border-radius:9px;
+}
+.stat strong {display:block;font-size:22px;color:var(--blue)}
+.stat span {font-size:11px;color:var(--muted)}
+.empty {
+ background:var(--panel);
+ padding:30px;
+ border:1px solid var(--line);
+ border-radius:13px;
+ text-align:center;
+ color:var(--muted);
+ line-height:1.6;
+}
+footer {
+ text-align:center;
+ color:var(--muted);
+ padding:35px 15px;
+ font-size:12px;
+}
+@media(max-width:650px) {
+ header {padding:0 18px}
+ main {padding:25px 15px}
+ .filters {grid-template-columns:1fr}
+ .filters button {width:100%}
+ .hero h1 {font-size:29px}
+ .teams {font-size:14px}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SHOT<span>IQ</span></div>
+<div class="status">● FOOTBALL ANALYTICS</div>
+</header>
+<main>
+<section class="hero">
+<h1>Match Center</h1>
+<p>Real football data. Smarter match insights.</p>
+</section>
+<section class="filters">
+<div>
+<label for="date">Välj datum</label>
+<input type="date" id="date">
+</div>
+<div>
+<label for="league">Liga</label>
+<select id="league">
+<option value="all">Alla ligor</option>
+</select>
+</div>
+<button onclick="searchMatches()">SÖK MATCHER</button>
+</section>
+<h2 class="section-title">Matcher</h2>
+<section id="matches" class="matches">
+<div class="empty">
+     Välj ett datum och sök efter matcher.
+</div>
+</section>
+</main>
+<footer>
+ SHOTIQ FOOTBALL ANALYTICS · Statistik visas när datakällan är ansluten.
+</footer>
+<script>
+const dateInput = document.getElementById("date");
+const matches = document.getElementById("matches");
+dateInput.value = new Date().toISOString().slice(0,10);
+async function searchMatches() {
+ const date = dateInput.value;
+ if (!date) {
+   matches.textContent = "Välj ett datum först.";
+   return;
+ }
+ matches.innerHTML = `
+<div class="empty">
+     Matchsökningen är redo.<br>
+     API-Football behöver kopplas via en säker backend
+     innan riktiga matcher och statistik kan visas.
+</div>
+ `;
+}
+</script>
+</body>
+</html>
+har snabbmeny
