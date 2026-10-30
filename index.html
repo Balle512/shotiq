@@ -5,73 +5,155 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SHOTIQ | Football Analytics</title>
 <style>
-:root {
---bg:#080d18;
---panel:#111a2b;
---panel2:#17243a;
---line:#263650;
---blue:#37c9ff;
---green:#35e6a0;
---text:#f4f7ff;
---muted:#94a6c2;
+* {
+ box-sizing: border-box;
 }
-* {box-sizing:border-box}
 body {
-margin:0;background:var(--bg);color:var(--text);
-font-family:Arial,sans-serif;
+ margin: 0;
+ background: #080d18;
+ color: #f4f7ff;
+ font-family: Arial, sans-serif;
 }
 header {
-height:75px;display:flex;align-items:center;
-justify-content:space-between;padding:0 7%;
-border-bottom:1px solid var(--line);background:#0c1423;
+ padding: 22px 7%;
+ background: #0c1423;
+ border-bottom: 1px solid #263650;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
 }
-.logo {font-size:28px;font-weight:900}
-.logo span {color:var(--blue)}
-.status {color:var(--green);font-size:12px}
-main {max-width:1100px;margin:auto;padding:35px 20px}
-.hero {margin-bottom:30px}
-.hero h1 {font-size:35px;margin:0 0 10px}
-.hero p {color:var(--muted)}
+.logo {
+ font-size: 29px;
+ font-weight: 900;
+}
+.logo span {
+ color: #37c9ff;
+}
+.status {
+ color: #35e6a0;
+ font-size: 12px;
+}
+main {
+ max-width: 1100px;
+ margin: auto;
+ padding: 35px 20px;
+}
+h1 {
+ font-size: 36px;
+ margin-bottom: 8px;
+}
+.subtitle {
+ color: #94a6c2;
+ margin-bottom: 30px;
+}
 .filters {
-display:grid;grid-template-columns:1fr auto;gap:12px;
-background:var(--panel);border:1px solid var(--line);
-border-radius:15px;padding:20px;
+ background: #111a2b;
+ border: 1px solid #263650;
+ border-radius: 14px;
+ padding: 20px;
+ display: grid;
+ grid-template-columns: 1fr 1fr auto;
+ gap: 14px;
 }
-label {display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
-input {
-width:100%;padding:13px;border-radius:8px;
-border:1px solid var(--line);background:#0a1322;
-color:white;font-size:15px;
+label {
+ display: block;
+ color: #94a6c2;
+ font-size: 12px;
+ margin-bottom: 8px;
+}
+input, select {
+ width: 100%;
+ padding: 13px;
+ border-radius: 8px;
+ border: 1px solid #263650;
+ background: #0a1322;
+ color: white;
+ font-size: 15px;
 }
 button {
-border:0;border-radius:8px;background:var(--blue);
-color:#07111c;padding:13px 20px;font-weight:bold;cursor:pointer;
+ border: none;
+ border-radius: 8px;
+ background: #37c9ff;
+ color: #07111c;
+ padding: 13px 20px;
+ font-weight: bold;
+ cursor: pointer;
+ align-self: end;
 }
-.section-title {margin:32px 0 15px;font-size:20px}
-.matches {display:grid;gap:14px}
+.section-title {
+ margin: 32px 0 15px;
+ font-size: 21px;
+}
+.matches {
+ display: grid;
+ gap: 13px;
+}
 .match {
-background:var(--panel);border:1px solid var(--line);
-border-radius:13px;padding:20px;
+ background: #111a2b;
+ border: 1px solid #263650;
+ border-radius: 13px;
+ padding: 20px;
+}
+.league {
+ color: #37c9ff;
+ font-size: 12px;
+ margin-bottom: 17px;
 }
 .teams {
-display:flex;justify-content:space-between;
-align-items:center;gap:10px;font-weight:bold;
+ display: grid;
+ grid-template-columns: 1fr auto 1fr;
+ align-items: center;
+ gap: 12px;
+ font-weight: bold;
 }
-.meta {color:var(--muted);font-size:12px;margin-top:12px}
-.score {color:var(--blue);font-size:20px}
+.home {
+ text-align: left;
+}
+.away {
+ text-align: right;
+}
+.score {
+ color: #37c9ff;
+ font-size: 22px;
+}
+.meta {
+ color: #94a6c2;
+ font-size: 12px;
+ margin-top: 15px;
+}
 .empty {
-background:var(--panel);padding:30px;
-border:1px solid var(--line);border-radius:13px;
-text-align:center;color:var(--muted);line-height:1.6;
+ background: #111a2b;
+ border: 1px solid #263650;
+ border-radius: 13px;
+ padding: 30px;
+ text-align: center;
+ color: #94a6c2;
 }
-footer {text-align:center;color:var(--muted);padding:35px 15px;font-size:12px}
-@media(max-width:650px) {
-header {padding:0 18px}
-main {padding:25px 15px}
-.filters {grid-template-columns:1fr}
-.filters button {width:100%}
-.hero h1 {font-size:29px}
-.teams {font-size:14px}
+footer {
+ text-align: center;
+ color: #65758f;
+ padding: 35px;
+ font-size: 12px;
+}
+@media(max-width: 650px) {
+ header {
+   padding: 20px;
+ }
+ main {
+   padding: 25px 15px;
+ }
+ .filters {
+   grid-template-columns: 1fr;
+ }
+ button {
+   width: 100%;
+ }
+ h1 {
+   font-size: 29px;
+ }
+ .teams {
+   font-size: 13px;
+ }
 }
 </style>
 </head>
@@ -81,14 +163,20 @@ main {padding:25px 15px}
 <div class="status">● LIVE FOOTBALL DATA</div>
 </header>
 <main>
-<section class="hero">
 <h1>Match Center</h1>
-<p>Real football data. Smarter match insights.</p>
-</section>
+<p class="subtitle">Premier League & La Liga — Football Analytics</p>
 <section class="filters">
 <div>
 <label for="date">Välj datum</label>
 <input type="date" id="date">
+</div>
+<div>
+<label for="league">Välj liga</label>
+<select id="league">
+<option value="all">Båda ligorna</option>
+<option value="39">Premier League</option>
+<option value="140">La Liga</option>
+</select>
 </div>
 <button onclick="searchMatches()">SÖK MATCHER</button>
 </section>
@@ -101,64 +189,87 @@ main {padding:25px 15px}
 <script>
 const API = "https://shotiq-api.alvinhogedal.workers.dev";
 const dateInput = document.getElementById("date");
+const leagueInput = document.getElementById("league");
 const matches = document.getElementById("matches");
 dateInput.value = new Date().toLocaleDateString("sv-SE");
 async function searchMatches() {
-const date = dateInput.value;
-if (!date) {
-matches.textContent = "Välj ett datum först.";
-return;
-}
-matches.innerHTML = '<div class="empty">Hämtar riktiga matcher...</div>';
-try {
-const response = await fetch(
-`${API}/matches?date=${encodeURIComponent(date)}`
-);
-const data = await response.json();
-if (!response.ok || data.errors?.rateLimit) {
-throw new Error(data.errors?.rateLimit
-? "API-gränsen är nådd. Försök senare."
-: "Kunde inte hämta matcher.");
-}
-if (!Array.isArray(data.response) || data.response.length === 0) {
-matches.innerHTML = '<div class="empty">Inga matcher hittades för detta datum.</div>';
-return;
-}
-matches.innerHTML = data.response.map(item => {
-const home = item.teams?.home?.name || "Hemmalag";
-const away = item.teams?.away?.name || "Bortalag";
-const league = item.league?.name || "Okänd liga";
-const time = item.fixture?.date
-? new Date(item.fixture.date).toLocaleTimeString("sv-SE", {
-hour:"2-digit",minute:"2-digit"
-}) : "";
-const status = item.fixture?.status?.short || "";
-const elapsed = item.fixture?.status?.elapsed;
-const goals = item.goals || {};
-const score = goals.home != null && goals.away != null
-? `${goals.home} - ${goals.away}` : "VS";
-return `
+ const date = dateInput.value;
+ const selectedLeague = leagueInput.value;
+ if (!date) {
+   matches.textContent = "Välj ett datum först.";
+   return;
+ }
+ matches.innerHTML = '<div class="empty">Hämtar matcher...</div>';
+ try {
+   const response = await fetch(
+     `${API}/matches?date=${encodeURIComponent(date)}`
+   );
+   const data = await response.json();
+   if (!response.ok || data.errors?.rateLimit) {
+     throw new Error("API-gränsen är nådd. Försök senare.");
+   }
+   if (!Array.isArray(data.response)) {
+     throw new Error("Kunde inte läsa matcherna.");
+   }
+   const filtered = data.response.filter(item => {
+     const leagueId = String(item.league?.id);
+     return (
+       leagueId === "39" || leagueId === "140"
+     ) && (
+       selectedLeague === "all" ||
+       leagueId === selectedLeague
+     );
+   });
+   if (filtered.length === 0) {
+     matches.innerHTML =
+       '<div class="empty">Inga matcher hittades för vald liga och datum.</div>';
+     return;
+   }
+   matches.innerHTML = filtered.map(item => {
+     const home = item.teams?.home?.name || "Hemmalag";
+     const away = item.teams?.away?.name || "Bortalag";
+     const league = item.league?.name || "Okänd liga";
+     const time = item.fixture?.date
+       ? new Date(item.fixture.date).toLocaleTimeString("sv-SE", {
+           hour: "2-digit",
+           minute: "2-digit"
+         })
+       : "";
+     const status = item.fixture?.status?.short || "";
+     const elapsed = item.fixture?.status?.elapsed;
+     const goals = item.goals || {};
+     const score =
+       goals.home != null && goals.away != null
+         ? `${goals.home} - ${goals.away}`
+         : "VS";
+     return `
 <article class="match">
+<div class="league">${escapeHTML(league)}</div>
 <div class="teams">
-<span>${escapeHTML(home)}</span>
+<span class="home">${escapeHTML(home)}</span>
 <span class="score">${escapeHTML(score)}</span>
-<span>${escapeHTML(away)}</span>
+<span class="away">${escapeHTML(away)}</span>
 </div>
 <div class="meta">
-${escapeHTML(league)} · ${escapeHTML(time)} · ${escapeHTML(status)}
-${elapsed != null ? ` · ${elapsed}'` : ""}
+           ${escapeHTML(time)} · ${escapeHTML(status)}
+           ${elapsed != null ? ` · ${elapsed}'` : ""}
 </div>
-</article>`;
-}).join("");
-} catch (error) {
-matches.innerHTML = `<div class="empty">${escapeHTML(error.message)}</div>`;
-}
+</article>
+     `;
+   }).join("");
+ } catch (error) {
+   matches.innerHTML =
+     `<div class="empty">${escapeHTML(error.message)}</div>`;
+ }
 }
 function escapeHTML(value) {
-return String(value).replace(/[&<>"']/g, char => ({
-"&":"&amp;","<":"&lt;",">":"&gt;",
-'"':"&quot;","'":"&#39;"
-})[char]);
+ return String(value).replace(/[&<>"']/g, char => ({
+   "&": "&amp;",
+   "<": "&lt;",
+   ">": "&gt;",
+   '"': "&quot;",
+   "'": "&#39;"
+ })[char]);
 }
 searchMatches();
 </script>
